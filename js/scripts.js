@@ -1,4 +1,20 @@
 var Contact = {
+  all: [],
+  
+  create: function(firstName, lastName) {
+    var contactInstance = Object.create(Contact);
+    contactInstance.initialize(firstName, lastName);
+    Contact.all.push(contactInstance);
+    return contactInstance;
+  },
+
+  initialize: function(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.addresses = [];
+    this.phones = [];
+  },
+
   fullName: function() {
     return this.firstName + " " + this.lastName;
   }
@@ -17,7 +33,7 @@ var Address = {
     if (this.state.length != 2 || this.state.search(/[0-9]/) != -1)
       return false;
     if (this.zip.length != 5 || this.zip.search(/[a-z]/i) != -1)
-      
+
       return false;
 
     return true;
@@ -76,16 +92,10 @@ $(document).ready(function() {
 
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
+
+
+    var newContact = Contact.create(inputtedFirstName, inputtedLastName);
     
-
-
-    var newContact = Object.create(Contact);
-    newContact.firstName = inputtedFirstName;
-    newContact.lastName = inputtedLastName;
-
-    newContact.addresses = [];
-    newContact.phones = [];
-
     $(".new-address").each(function() {
       var inputtedStreet = $(this).find("input#new-street").val();
       var inputtedCity = $(this).find("input#new-city").val();
