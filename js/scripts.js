@@ -17,6 +17,7 @@ var Address = {
     if (this.state.length != 2 || this.state.search(/[0-9]/) != -1)
       return false;
     if (this.zip.length != 5 || this.zip.search(/[a-z]/i) != -1)
+      
       return false;
 
     return true;
