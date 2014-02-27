@@ -8,7 +8,6 @@ describe("Contact", function() {
       var testContact = Contact.create();
       Contact.isPrototypeOf(testContact).should.equal(true);
     });
-
     it("initializes the contact", function() {
       var testContact = Contact.create("Mary", "Jane");
       testContact.addresses.should.eql([]);
@@ -18,9 +17,34 @@ describe("Contact", function() {
       var testContact = Contact.create();
       Contact.all.should.eql([testContact]);
     });
+
+    describe("createAddress", function() {
+      it("creates an address object", function() {
+        var testContact = Contact.create();
+        var testAddress = testContact.createAddress();
+        Address.isPrototypeOf(testAddress).should.equal(true);
+      });
+      it("adds the address to the addresses property of the contact", function() {
+        var testContact = Contact.create();
+        var testAddress = testContact.createAddress();
+        testContact.addresses.should.eql([testAddress]);
+      });
+    });
+
+    describe("createPhone", function() {
+      it("creates a phone object", function() {
+        var testContact = Contact.create();
+        var testPhone = testContact.createPhone();
+        Phone.isPrototypeOf(testPhone).should.equal(true);
+      });
+
+      it("adds the phone number to the phone property of the contact", function() {
+        var testContact = Contact.create();
+        var testPhone = testContact.createPhone();
+        testContact.phones.should.eql([testPhone]);
+      });
+    });
   });
-
-
 
   describe("initialize", function() {
     it("sets the first and last name", function() {
@@ -50,6 +74,24 @@ describe("Address", function() {
       testAddress.state = "OR";
       testAddress.zip = "97201";
       testAddress.fullAddress().should.equal("123 Main St<br />Portland, OR 97201");
+    });
+  });
+
+  describe("create", function() {
+    it("it creates a new instance of Address.", function() {
+      var testAddress = Address.create();
+      Address.isPrototypeOf(testAddress).should.equal(true);
+    });
+  });
+
+  describe("initialize", function() {
+    it("sets the street, city, state and zip", function() {
+      var testAddress = Object.create(Address);
+      testAddress.initialize("123 Main St", "Portland", "OR", "97201");
+      testAddress.street.should.equal("123 Main St");
+      testAddress.city.should.equal("Portland");
+      testAddress.state.should.equal("OR");
+      testAddress.zip.should.equal("97201");
     });
   });
 
